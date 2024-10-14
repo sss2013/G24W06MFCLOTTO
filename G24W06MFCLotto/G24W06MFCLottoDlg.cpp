@@ -170,17 +170,37 @@ HCURSOR CG24W06MFCLottoDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+static void AddwithSort(CArray<int, int>& arr, int n) {
+	for (int i = 0; i < arr.GetCount(); i++) {
+		if (arr[i] == n) {
+			return;
+		}
+		else if (arr[i] > n) {
+			arr.InsertAt(i, n);
+			return;
+		}
+	}
+	arr.Add(n);
+}
 
 
 void CG24W06MFCLottoDlg::OnBtnGenerateClicked()
 {
 
 	CArray<int, int> nums;
+	while (nums.GetCount() < 6) {
+		int n = rand() % 45 + 1;
+		AddwithSort(nums, n);
+	}
 
 
-	num.Format(L"%d", rand() % 45 + 1);
-
-	Num1 = num;
+	Num1.Format(L"%d",nums[0]);
+	Num2.Format(L"%d",nums[1]);
+	Num3.Format(L"%d",nums[2]);
+	Num4.Format(L"%d",nums[3]);
+	Num5.Format(L"%d",nums[4]);
+	Num6.Format(L"%d",nums[5]);
+	
 	
 	UpdateData(FALSE); //true->화면에 있는 데이터 가져옴.
 }
